@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'dart:typed_data';
 import 'package:mon_projet2/navigation_bar.dart';
+import 'package:mon_projet2/search.dart';
 import 'package:mon_projet2/test.dart';
 
 class Homepage1 extends StatelessWidget {
@@ -17,7 +18,7 @@ class Homepage1 extends StatelessWidget {
       body: SingleChildScrollView(
           child: Column(
         children: [
-          searchsection,
+          searchsection(context),
           brandssection,
           availablesection,
         ],
@@ -61,7 +62,7 @@ Future<Uint8List> removeBackground(String imageUrl) async {
   }
 }
 
-Widget searchsection = Container(
+Widget searchsection(BuildContext context) => Container(
   margin: const EdgeInsets.only(top: 80, bottom: 12),
   width: 360,
   height: 60,
@@ -82,16 +83,24 @@ Widget searchsection = Container(
           ),
         ),
       ),
-      const Expanded(
+      Expanded(
         child: TextField(
-          style: TextStyle(color: Colors.black, fontSize: 20),
-          decoration: InputDecoration(
+          style: const TextStyle(color: Colors.black, fontSize: 20),
+          decoration: const InputDecoration(
             hintText: "Search Car...",
             hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
             border: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
           ),
           textAlign: TextAlign.left,
+          onSubmitted: (query) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchPage(searchQuery: query),
+              ),
+            );
+          },
         ),
       ),
     ],
