@@ -78,7 +78,7 @@ class LoginPage extends StatelessWidget {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pushNamed(context,'/homepage1');
           },
         ));
   }

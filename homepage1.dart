@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:mon_projet2/navigation_bar.dart';
 import 'package:mon_projet2/search.dart';
 import 'package:mon_projet2/test.dart';
+import 'notification.dart';
 
 class Homepage1 extends StatelessWidget {
   const Homepage1({super.key});
@@ -14,6 +15,23 @@ class Homepage1 extends StatelessWidget {
   Widget build(BuildContext context) {  
   
     return Scaffold(
+       appBar: AppBar(
+        title: const Text('Accueil'),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NotificationsPage(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       backgroundColor: const Color.fromARGB(255, 5, 5, 5),
       body: SingleChildScrollView(
           child: Column(
@@ -32,7 +50,7 @@ Future<Uint8List> removeBackground(String imageUrl) async {
     final response = await http.post(
       Uri.parse('https://api.remove.bg/v1.0/removebg'),
       headers: {
-        'X-Api-Key': 'SjKVxLf1d6DTW33kiRypjWCy', // Remplacez par votre clé API
+        'X-Api-Key': 'hVdGpbFsrbgWgBXNydde11cU', // clé API
       },
       body: {
         'image_url': imageUrl,
@@ -352,7 +370,7 @@ Widget availablesection = Container(
                             color: const Color.fromARGB(255, 217, 217, 217),
                             borderRadius: BorderRadius.circular(22),
                           ),
-                          child: const Center(child: CircularProgressIndicator()),
+                          // child: const Center(child: CircularProgressIndicator()),
                         );
                       }
                     },

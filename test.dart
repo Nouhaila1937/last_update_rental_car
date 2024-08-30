@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
+import 'package:mon_projet2/reservation.dart';
 import 'dart:typed_data';
 import 'services/firestore.dart';
 
@@ -28,7 +29,7 @@ class _TestState extends State<Test> {
     final response = await http.post(
       Uri.parse('https://api.remove.bg/v1.0/removebg'),
       headers: {
-        'X-Api-Key': 'SjKVxLf1d6DTW33kiRypjWCy',
+        'X-Api-Key': 'hVdGpbFsrbgWgBXNydde11cU',
       },
       body: {
         'image_url': imageUrl,
@@ -101,7 +102,7 @@ class _TestState extends State<Test> {
                   content: Text('Car added to favorite'),
                   backgroundColor: Colors.green,
                 ),
-              ); 
+              );
             },
             icon: const Icon(
               Icons.favorite_rounded,
@@ -200,8 +201,8 @@ class _TestState extends State<Test> {
 
   Widget specificationsection(Map<String, dynamic> carData) {
     // Assurez-vous que 'rental_price' est une chaîne et convertissez-la en double
-  double rentalPrice =
-      double.tryParse(carData['rental_price'].toString()) ?? 0.0;
+    double rentalPrice =
+        double.tryParse(carData['rental_price'].toString()) ?? 0.0;
 
     // Calculez les prix en fonction de la durée et formatez-les avec trois chiffres après la virgule
     String price12Month = '${(rentalPrice * 355).toStringAsFixed(2)} DH';
@@ -432,39 +433,39 @@ class _TestState extends State<Test> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                innerShadowContainer(
-                  Container(
-                    width: 150,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 35, 79, 234),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Padding(
-                          padding: EdgeInsets.only(left: 13, top: 4),
-                          child: Text('12 Month:',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                fontFamily: 'Mukta',
-                              )),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 13, top: 2),
-                          child: Text(price12Month,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Mukta',
-                              )),
-                        ),
-                      ],
+                  innerShadowContainer(
+                    Container(
+                      width: 150,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 35, 79, 234),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const Padding(
+                            padding: EdgeInsets.only(left: 13, top: 4),
+                            child: Text('12 Month:',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  fontFamily: 'Mukta',
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 13, top: 2),
+                            child: Text(price12Month,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Mukta',
+                                )),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
                   innerShadowContainer(
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -518,29 +519,27 @@ class _TestState extends State<Test> {
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[  
-                  Column(
+            children: <Widget>[
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Padding(
                     padding: EdgeInsets.only(left: 20),
                     child: Text(
                       'Per day',
-                      style: TextStyle(fontSize: 18,
-                      fontFamily: 'Mukta'
-                      ),
+                      style: TextStyle(fontSize: 18, fontFamily: 'Mukta'),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
-                    child:  Text('${double.parse(carData['rental_price']).toStringAsFixed(2)}DH', // Ceci est un exemple. Remplacez-le par le prix réel si disponible
-                      style:
-                          const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    child: Text(
+                      '${double.parse(carData['rental_price']).toStringAsFixed(2)}DH', // Ceci est un exemple. Remplacez-le par le prix réel si disponible
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
               ),
-              
               const SizedBox(width: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -561,7 +560,13 @@ class _TestState extends State<Test> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/contact');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ReservationPage(carId: widget.carId),
+                    ),
+                  );
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
